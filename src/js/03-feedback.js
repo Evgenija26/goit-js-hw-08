@@ -2,7 +2,7 @@ import throttle from 'lodash.throttle';
 import storage from './storage';
 
 const STORAGE_KEY = 'feedback-form-state';
-const savedFormData = storage.load(STORAGE_KEY) || {};
+let savedFormData = storage.load(STORAGE_KEY) || {};
 const refs = {
   form: document.querySelector('form.feedback-form'),
 };
@@ -27,6 +27,8 @@ function onFormSubmit(e) {
   e.preventDefault();
   const form = e.currentTarget;
   const data = {};
+
+  savedFormData = '';
 
   new FormData(form).forEach((value, name) => {
     data[name] = value;
